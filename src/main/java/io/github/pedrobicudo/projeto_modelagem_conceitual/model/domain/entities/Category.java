@@ -4,6 +4,8 @@ package io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.entities
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -20,4 +22,11 @@ public class Category {
     @Column(name = "NAME", length = 24, nullable = false )
     private String name;
 
+    @ManyToMany(mappedBy = "categories")
+    private List<Product> products = new ArrayList<>();
+
+    public Category(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }
