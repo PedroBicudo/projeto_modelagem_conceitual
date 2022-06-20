@@ -1,6 +1,7 @@
 package io.github.pedrobicudo.projeto_modelagem_conceitual.rest.controller;
 
 import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.entities.Category;
+import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.repositories.CategoryRepository;
 import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.services.interfaces.ICategoryService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,8 +14,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = {CategoryController.class})
+@WebMvcTest(CategoryController.class)
 class CategoryControllerTest {
+
+    @MockBean
+    private CategoryRepository categoryRepository;
 
     @MockBean
     private ICategoryService service;
