@@ -2,6 +2,22 @@ spring:
   application:
     name: "Estudo de caso UML"
 
+  #
+  # h2 database
+  #
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+    driverClassName: org.h2.Driver
+  jpa:
+    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+
 server:
   servlet:
     context-path: /api
