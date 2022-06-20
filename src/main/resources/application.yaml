@@ -1,6 +1,8 @@
 spring:
   application:
     name: "Estudo de caso UML"
+  profiles:
+    active: ${PROFILE:test}
 
   #
   # h2 database
