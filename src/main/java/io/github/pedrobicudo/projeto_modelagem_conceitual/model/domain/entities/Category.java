@@ -1,6 +1,7 @@
 package io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,6 +23,7 @@ public class Category {
     @Column(name = "NAME", length = 24, nullable = false )
     private String name;
 
+    @JsonManagedReference
     @ManyToMany(mappedBy = "categories")
     private List<Product> products = new ArrayList<>();
 
