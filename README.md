@@ -5,10 +5,19 @@
 
 ### Gerando o jar
 ```shell
-mvn install
+mvn clean package
 ```
 ### Executando o projeto
 ```shell
 cd target
 java -jar projeto_modelagem_conceitual-0.0.1-SNAPSHOT.jar 
 ```
+### Desafio pessoal
+- Desenvolver o projeto aplicando TDD.
+
+### Tecnologias usadas
+- Java
+- Spring Boot, Spring Web, Spring Data JPA, Spring Validation
+- Spring Test, JUnit5 e Mockito
+- H2
+- lombok
