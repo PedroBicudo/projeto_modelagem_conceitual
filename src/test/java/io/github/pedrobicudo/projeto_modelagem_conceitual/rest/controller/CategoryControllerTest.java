@@ -1,6 +1,7 @@
 package io.github.pedrobicudo.projeto_modelagem_conceitual.rest.controller;
 
 import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.entities.Category;
+import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.exceptions.ObjectNotFoundException;
 import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.repositories.CategoryRepository;
 import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.repositories.ProductRepository;
 import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.services.interfaces.ICategoryService;
@@ -13,6 +14,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(CategoryController.class)
@@ -37,6 +39,17 @@ class CategoryControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders.get("/categories/1"))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("/categories/{id} with non existent id must return not found status code")
+    public void testCategoriesIdWithNonExistentIdMustReturnNotFoundStatusCode() throws Exception {
+        Mockito.when(service.findById(1))
+                .thenThrow(ObjectNotFoundException.class);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/categories/1"))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.statusCode").value(404));
     }
 
 }

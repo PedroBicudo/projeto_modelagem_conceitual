@@ -1,6 +1,7 @@
 package io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.services.implementations;
 
 import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.entities.Category;
+import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.exceptions.ObjectNotFoundException;
 import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.repositories.CategoryRepository;
 import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.services.interfaces.ICategoryService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,12 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public Category findById(Integer id) {
-        return repository.findById(id).orElse(null);
+        return repository.findById(id)
+                .orElseThrow(() -> {
+                    return new ObjectNotFoundException(
+                            "Object not found! id: "+id+
+                            ", Type: "+Category.class.getSimpleName()
+                    );
+                });
     }
 }
