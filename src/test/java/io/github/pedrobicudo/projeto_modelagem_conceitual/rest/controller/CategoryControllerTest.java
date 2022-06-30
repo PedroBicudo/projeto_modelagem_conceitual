@@ -2,10 +2,7 @@ package io.github.pedrobicudo.projeto_modelagem_conceitual.rest.controller;
 
 import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.entities.Category;
 import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.exceptions.ObjectNotFoundException;
-import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.repositories.CategoryRepository;
-import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.repositories.CityRepository;
-import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.repositories.ProductRepository;
-import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.repositories.StateRepository;
+import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.repositories.*;
 import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.services.interfaces.ICategoryService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,6 +24,15 @@ class CategoryControllerTest {
 
     @MockBean
     private CategoryRepository categoryRepository;
+
+    @MockBean
+    private ClientRepository clientRepository;
+
+    @MockBean
+    private AddressRepository addressRepository;
+
+    @MockBean
+    private PhoneRepository phoneRepository;
 
     @MockBean
     private ICategoryService service;

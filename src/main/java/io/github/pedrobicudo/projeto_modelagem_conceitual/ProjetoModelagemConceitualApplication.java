@@ -1,18 +1,14 @@
 package io.github.pedrobicudo.projeto_modelagem_conceitual;
 
-import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.entities.Category;
-import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.entities.City;
-import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.entities.Product;
-import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.entities.State;
-import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.repositories.CategoryRepository;
-import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.repositories.CityRepository;
-import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.repositories.ProductRepository;
-import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.repositories.StateRepository;
+import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.entities.*;
+import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.enums.ClientType;
+import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -35,6 +31,15 @@ public class ProjetoModelagemConceitualApplication implements CommandLineRunner 
 
 	@Autowired
 	private CityRepository cityRepository;
+
+	@Autowired
+	private ClientRepository clientRepository;
+
+	@Autowired
+	private AddressRepository addressRepository;
+
+	@Autowired
+	private PhoneRepository phoneRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProjetoModelagemConceitualApplication.class, args);
@@ -95,6 +100,41 @@ public class ProjetoModelagemConceitualApplication implements CommandLineRunner 
 
 		stateRepository.saveAll(states);
 		cityRepository.saveAll(cities);
+
+		Client client = new Client(null, "foo", "foo@gmail.com", "123456789", ClientType.NATURAL_PERSON);
+		clientRepository.save(client);
+
+		List<Phone> phones = List.of(
+				new Phone(new PhonePK(client, "27363323")),
+				new Phone(new PhonePK(client, "93838393"))
+		);
+		phoneRepository.saveAll(phones);
+
+		List<Address> addresses = List.of(
+				new Address(
+						null,
+						"Rua flores",
+						"300",
+						"Apto 203",
+						"Jardim",
+						"38220834",
+						client,
+						cities.get(0)
+				),
+				new Address(
+						null,
+						"Avenida Matos",
+						"105",
+						"Sala 800",
+						"Centro",
+						"38777012",
+						client,
+						cities.get(1)
+				)
+		);
+		client.getAddresses().addAll(addresses);
+		clientRepository.save(client);
+		addressRepository.saveAll(addresses);
 
 	}
 }
