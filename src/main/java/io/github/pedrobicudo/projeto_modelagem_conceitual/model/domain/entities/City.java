@@ -1,6 +1,7 @@
 package io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +23,7 @@ public class City {
     @Column(name = "NAME", nullable = false, length = 100)
     private String name;
 
-    @JsonBackReference
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "IDFK_STATE_CITY")
     private State state;

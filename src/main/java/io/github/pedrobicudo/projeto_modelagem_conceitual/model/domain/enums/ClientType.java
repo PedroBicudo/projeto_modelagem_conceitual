@@ -1,5 +1,7 @@
 package io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.enums;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum ClientType {
     NATURAL_PERSON(1, "Natural Person"),
     LEGAL_ENTITY(2, "Legal Entity");
@@ -27,6 +29,12 @@ public enum ClientType {
     }
 
     public String getDescription() {
+        return description;
+    }
+
+    @JsonValue
+    @Override
+    public String toString() {
         return description;
     }
 }
