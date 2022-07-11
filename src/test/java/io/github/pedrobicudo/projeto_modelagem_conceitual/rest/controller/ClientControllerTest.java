@@ -44,6 +44,12 @@ class ClientControllerTest {
     private CityRepository cityRepository;
 
     @MockBean
+    private OrderRepository orderRepository;
+
+    @MockBean
+    private PaymentRepository paymentRepository;
+
+    @MockBean
     private IClientService service;
 
     @Autowired

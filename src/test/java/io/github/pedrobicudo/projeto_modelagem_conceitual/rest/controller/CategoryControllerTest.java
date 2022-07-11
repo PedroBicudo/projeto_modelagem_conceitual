@@ -43,6 +43,12 @@ class CategoryControllerTest {
     @MockBean
     private CityRepository cityRepository;
 
+    @MockBean
+    private OrderRepository orderRepository;
+
+    @MockBean
+    private PaymentRepository paymentRepository;
+
     @Autowired
     private MockMvc mockMvc;
 

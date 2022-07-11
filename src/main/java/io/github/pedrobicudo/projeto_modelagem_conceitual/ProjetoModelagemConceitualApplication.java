@@ -2,6 +2,7 @@ package io.github.pedrobicudo.projeto_modelagem_conceitual;
 
 import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.entities.*;
 import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.enums.ClientType;
+import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.enums.PaymentState;
 import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +42,14 @@ public class ProjetoModelagemConceitualApplication implements CommandLineRunner 
 
 	@Autowired
 	private PhoneRepository phoneRepository;
+
+	@Autowired
+	private OrderRepository orderRepository;
+
+	@Autowired
+	private PaymentRepository paymentRepository;
+
+	private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProjetoModelagemConceitualApplication.class, args);
@@ -135,6 +145,29 @@ public class ProjetoModelagemConceitualApplication implements CommandLineRunner 
 		client.getAddresses().addAll(addresses);
 		clientRepository.save(client);
 		addressRepository.saveAll(addresses);
+
+		// ---
+		List<Order> orders = List.of(
+				new Order(null, sdf.parse("30/09/2017 10:32"), null, client.getAddresses().get(0), client),
+				new Order(null, sdf.parse("10/10/2017 19:35"), null, client.getAddresses().get(1), client)
+		);
+
+		List<Payment> payments = List.of(
+			new PaymentWithCard(null, PaymentState.ACCEPTED.getCode(), orders.get(0), 6),
+			new PaymentWithBill(null, PaymentState.PENDING.getCode(), orders.get(1), sdf.parse("20/10/2017 00:00"), null)
+		);
+
+		orders.get(0)
+				.setPayment(payments.get(0));
+
+		orders.get(1)
+				.setPayment(payments.get(1));
+
+		client.getOrders().addAll(orders);
+		orderRepository.saveAll(orders);
+		paymentRepository.saveAll(payments);
+		clientRepository.save(client);
+		// ---
 
 	}
 }

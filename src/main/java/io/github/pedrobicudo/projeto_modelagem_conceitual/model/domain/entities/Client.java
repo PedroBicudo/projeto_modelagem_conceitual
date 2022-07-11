@@ -42,6 +42,9 @@ public class Client {
     @OneToMany(mappedBy = "pk.owner")
     private List<Phone> phones = new ArrayList<>();
 
+    @OneToMany(mappedBy = "client")
+    private List<Order> orders = new ArrayList<>();
+
     public Client(Integer id, String name, String email, String cpfOrCnpj, ClientType type) {
         this.id = id;
         this.name = name;
