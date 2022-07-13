@@ -50,6 +50,9 @@ class ClientControllerTest {
     private PaymentRepository paymentRepository;
 
     @MockBean
+    private OrderItemRepository orderItemRepository;
+
+    @MockBean
     private IClientService service;
 
     @Autowired

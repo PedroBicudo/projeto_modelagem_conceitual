@@ -5,7 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -33,4 +35,14 @@ public class Order {
     @JoinColumn(name = "IDFK_CLIENT_ORDER")
     private Client client;
 
+    @OneToMany(mappedBy = "pk.order")
+    private List<OrderItem> items = new ArrayList<>();
+
+    public Order(Integer id, Date instant, Payment payment, Address deliveryAddress, Client client) {
+        this.id = id;
+        this.instant = instant;
+        this.payment = payment;
+        this.deliveryAddress = deliveryAddress;
+        this.client = client;
+    }
 }

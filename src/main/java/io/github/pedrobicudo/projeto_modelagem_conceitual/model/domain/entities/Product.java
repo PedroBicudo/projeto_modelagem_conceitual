@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
@@ -41,9 +42,18 @@ public class Product {
     )
     private List<Category> categories = new ArrayList<>();
 
+    @OneToMany(mappedBy = "pk.product")
+    private List<OrderItem> items = new ArrayList<>();
+
     public Product(Integer id, String name, BigDecimal price) {
         this.id = id;
         this.name = name;
         this.price = price;
+    }
+
+    public List<Order> getOrders() {
+        return items.stream()
+                .map(item -> item.getPk().getOrder())
+                .collect(Collectors.toList());
     }
 }

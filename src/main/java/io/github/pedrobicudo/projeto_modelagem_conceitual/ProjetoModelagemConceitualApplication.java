@@ -47,6 +47,9 @@ public class ProjetoModelagemConceitualApplication implements CommandLineRunner 
 	private OrderRepository orderRepository;
 
 	@Autowired
+	private OrderItemRepository orderItemRepository;
+
+	@Autowired
 	private PaymentRepository paymentRepository;
 
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -168,6 +171,38 @@ public class ProjetoModelagemConceitualApplication implements CommandLineRunner 
 		paymentRepository.saveAll(payments);
 		clientRepository.save(client);
 		// ---
+		List<OrderItem> items = List.of(
+			new OrderItem(
+					new OrderItemPK(products.get(0), orders.get(0)),
+					0.00,
+					1,
+					BigDecimal.valueOf(2000.00)
+			),
+			new OrderItem(
+					new OrderItemPK(products.get(1), orders.get(1)),
+					0.00,
+					1,
+					BigDecimal.valueOf(800.00)
+			),
+			new OrderItem(
+					new OrderItemPK(products.get(2), orders.get(0)),
+					0.00,
+					2,
+					BigDecimal.valueOf(80.00)
+			)
+		);
+
+		orders.get(0)
+				.getItems().addAll(List.of(items.get(0), items.get(2)));
+
+		orders.get(1)
+				.getItems().addAll(List.of(items.get(1)));
+
+		orderItemRepository.saveAll(items);
+		orderRepository.saveAll(orders);
+		// ---
+
+
 
 	}
 }
