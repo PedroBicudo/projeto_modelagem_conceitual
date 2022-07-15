@@ -1,5 +1,6 @@
 package io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,9 +15,11 @@ import java.util.Date;
 @NoArgsConstructor
 public class PaymentWithBill extends Payment {
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     @Column(name = "DUE_DATE")
     private Date dueDate;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     @Column(name = "PAYMENT_DATE")
     private Date paymentDate;
 

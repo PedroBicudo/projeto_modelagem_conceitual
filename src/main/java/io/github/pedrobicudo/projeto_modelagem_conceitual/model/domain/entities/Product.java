@@ -1,6 +1,7 @@
 package io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -42,6 +43,7 @@ public class Product {
     )
     private List<Category> categories = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "pk.product")
     private List<OrderItem> items = new ArrayList<>();
 
@@ -51,6 +53,7 @@ public class Product {
         this.price = price;
     }
 
+    @JsonIgnore
     public List<Order> getOrders() {
         return items.stream()
                 .map(item -> item.getPk().getOrder())

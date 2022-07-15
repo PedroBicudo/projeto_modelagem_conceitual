@@ -1,5 +1,8 @@
 package io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.enums.PaymentState;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,9 +23,11 @@ public abstract class Payment {
     @Column(name = "ID")
     private Integer id;
 
+    @JsonIgnore
     @Column(name = "STATE", nullable = false)
     private Integer state;
 
+    @JsonBackReference
     @MapsId
     @OneToOne
     @JoinColumn(name = "IDFK_PAYMENT_ORDER")
@@ -31,5 +36,10 @@ public abstract class Payment {
     public Payment(Integer id, PaymentState paymentState) {
         this.id = id;
         this.state = paymentState.getCode();
+    }
+
+    @JsonProperty("state")
+    public PaymentState getState() {
+        return PaymentState.toEnum(state);
     }
 }

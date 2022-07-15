@@ -1,5 +1,7 @@
 package io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +19,7 @@ import java.math.BigDecimal;
 @Table(name = "ORDER_ITEM")
 public class OrderItem {
 
+    @JsonIgnore
     @EmbeddedId
     private OrderItemPK pk;
 
@@ -29,4 +32,8 @@ public class OrderItem {
     @Column(name = "PRICE", nullable = false)
     private BigDecimal price;
 
+    @JsonProperty("product")
+    public Product getProduct() {
+        return pk.getProduct();
+    }
 }
