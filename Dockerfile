@@ -25,5 +25,5 @@ RUN mvn clean package -DskipTests
 FROM openjdk:11
 EXPOSE 8080
 WORKDIR /app
-COPY --from=BASE stages/target/*.jar app.jar
+COPY --from=BUILD /stages/target/projeto_modelagem_conceitual-0.0.1-SNAPSHOT.jar app.jar
 ENTRYPOINT java -jar app.jar
