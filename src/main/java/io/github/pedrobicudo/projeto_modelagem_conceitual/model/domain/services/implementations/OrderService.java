@@ -16,12 +16,7 @@ public class OrderService implements IOrderService {
     @Override
     public Order findById(Integer id) {
         return orderRepository.findById(id)
-                .orElseThrow(() -> {
-                    return new ObjectNotFoundException(
-                            "Object not found! id: "+id+
-                                    ", Type: "+ Order.class.getSimpleName()
-                    );
-                });
+                .orElseThrow(() -> new ObjectNotFoundException(id, Order.class));
     }
 
 }

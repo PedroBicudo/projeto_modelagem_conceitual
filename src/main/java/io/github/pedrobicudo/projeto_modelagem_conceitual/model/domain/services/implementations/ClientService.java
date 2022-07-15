@@ -20,11 +20,6 @@ public class ClientService implements IClientService {
     @Transactional(readOnly = true)
     public Client findById(Integer id) {
         return clientRepository.findById(id)
-                .orElseThrow(() -> {
-                    return new ObjectNotFoundException(
-                            "Object not found! id: "+id+
-                                    ", Type: "+ Client.class.getSimpleName()
-                    );
-                });
+                .orElseThrow(() -> new ObjectNotFoundException(id, Client.class));
     }
 }

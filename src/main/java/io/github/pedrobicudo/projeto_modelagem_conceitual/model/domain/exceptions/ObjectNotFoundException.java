@@ -2,14 +2,7 @@ package io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.exceptio
 
 public class ObjectNotFoundException extends RuntimeException {
 
-    public ObjectNotFoundException() {
-    }
-
-    public ObjectNotFoundException(String message) {
-        super(message);
-    }
-
-    public ObjectNotFoundException(String message, Throwable cause) {
-        super(message, cause);
+    public ObjectNotFoundException(Integer id, Class<?> entity) {
+        super("Object not found! id: "+id+", Type: "+ entity.getSimpleName());
     }
 }

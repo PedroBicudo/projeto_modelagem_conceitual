@@ -18,11 +18,6 @@ public class CategoryService implements ICategoryService {
     @Override
     public Category findById(Integer id) {
         return repository.findById(id)
-                .orElseThrow(() -> {
-                    return new ObjectNotFoundException(
-                            "Object not found! id: "+id+
-                            ", Type: "+Category.class.getSimpleName()
-                    );
-                });
+                .orElseThrow(() -> new ObjectNotFoundException(id, Category.class));
     }
 }
