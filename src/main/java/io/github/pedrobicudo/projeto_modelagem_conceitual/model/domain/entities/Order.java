@@ -1,7 +1,6 @@
 package io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,7 +26,6 @@ public class Order {
     @Column(name = "INSTANT", nullable = false)
     private Date instant;
 
-    @JsonManagedReference
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     private Payment payment;
 
@@ -35,7 +33,6 @@ public class Order {
     @JoinColumn(name = "IDFK_ADDRESS_ORDER")
     private Address deliveryAddress;
 
-    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "IDFK_CLIENT_ORDER")
     private Client client;

@@ -1,6 +1,5 @@
 package io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,7 +29,7 @@ public class Product {
     @Column(name = "PRICE", nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
 
-    @JsonBackReference
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "PRODUCT_CATEGORY",

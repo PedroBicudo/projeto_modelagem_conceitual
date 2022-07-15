@@ -1,6 +1,6 @@
 package io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,7 +34,7 @@ public class Address {
     @Column(name = "CEP", nullable = false)
     private String cep;
 
-    @JsonBackReference
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "IDFK_CLIENT_ADDRESS")
     private Client client;

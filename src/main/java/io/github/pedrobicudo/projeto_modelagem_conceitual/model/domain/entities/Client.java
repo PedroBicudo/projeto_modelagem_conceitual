@@ -1,7 +1,6 @@
 package io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.enums.ClientType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,15 +34,13 @@ public class Client {
     @Column(name = "TYPE", nullable = false)
     private Integer type;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "client")
     private List<Address> addresses = new ArrayList<>();
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "pk.owner")
     private List<Phone> phones = new ArrayList<>();
 
-    @JsonBackReference
+    @JsonIgnore
     @OneToMany(mappedBy = "client")
     private List<Order> orders = new ArrayList<>();
 

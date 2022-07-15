@@ -1,6 +1,5 @@
 package io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.enums.PaymentState;
@@ -27,7 +26,7 @@ public abstract class Payment {
     @Column(name = "STATE", nullable = false)
     private Integer state;
 
-    @JsonBackReference
+    @JsonIgnore
     @MapsId
     @OneToOne
     @JoinColumn(name = "IDFK_PAYMENT_ORDER")

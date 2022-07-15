@@ -1,7 +1,7 @@
 package io.github.pedrobicudo.projeto_modelagem_conceitual.model.domain.entities;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +18,7 @@ import java.io.Serializable;
 @Embeddable
 public class PhonePK implements Serializable{
 
-    @JsonBackReference
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "IDFK_CLIENT_PHONE")
     private Client owner;
